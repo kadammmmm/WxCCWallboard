@@ -272,5 +272,6 @@ export async function fetchLiveSnapshot(client: SearchClient): Promise<Omit<Wall
     queues: mergeQueues(parseQueueTotals(flattenTaskAggs(queueTotals.taskDetails?.tasks, (t) => t.lastQueue?.name)), parseParkedQueues(parkedTasks)),
     agents, agentStates: mapAgentStates(agents),
     channels: parseChannels(flattenTaskAggs(channelData.taskDetails?.tasks, (t) => t.channelType)),
+    intervals: [],
   };
 }

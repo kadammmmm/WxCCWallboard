@@ -8,7 +8,7 @@ export class HistoryService {
     this.maxSize = maxSize;
   }
 
-  push(snapshot: Omit<WallboardSnapshot, "alerts" | "history">): void {
+  push(snapshot: Pick<WallboardSnapshot, "generatedAt" | "kpis" | "queues" | "agentStates">): void {
     const point: HistoryPoint = {
       timestamp: snapshot.generatedAt,
       offered: snapshot.kpis.offered,

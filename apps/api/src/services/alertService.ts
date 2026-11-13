@@ -1,7 +1,7 @@
 import { config } from "../config.js";
 import type { Alert, WallboardSnapshot } from "../types.js";
 
-export function evaluateAlerts(snapshot: Omit<WallboardSnapshot, "alerts" | "history">): Alert[] {
+export function evaluateAlerts(snapshot: Pick<WallboardSnapshot, "kpis" | "queues">): Alert[] {
   const alerts: Alert[] = [];
   const { alerts: thresholds } = config;
 
