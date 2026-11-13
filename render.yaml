@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: wxcc-wallboard
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "3001"
+      - key: MOCK_DATA
+        sync: false
+      - key: WALLBOARD_TITLE
+        sync: false
+      - key: WEBEX_CLIENT_ID
+        sync: false
+      - key: WEBEX_CLIENT_SECRET
+        sync: false
+      - key: WEBEX_APP_ID
+        sync: false
+      - key: WEBEX_ORG_ID
+        sync: false
+      - key: WEBEX_APPLICATIONS_TOKEN
+        sync: false
+      - key: WXCC_API_BASE
+        sync: false
+      - key: ORG_TIMEZONE
+        sync: false
