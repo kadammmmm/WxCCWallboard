@@ -1,29 +1,25 @@
 ﻿{
-    "name":  "wxcc-wallboard",
-    "version":  "2.0.0",
-    "private":  true,
-    "description":  "Production-grade Webex Contact Center wallboard with real-time updates",
-    "workspaces":  [
-                       "apps/api",
-                       "apps/web"
-                   ],
-    "scripts":  {
-                    "dev":  "concurrently -n api,web -c blue,green \"npm run dev -w apps/api\" \"npm run dev -w apps/web\"",
-                    "dev:mock":  "cross-env MOCK_DATA=true npm run dev",
-                    "build":  "npm run build -w apps/web \u0026\u0026 npm run build -w apps/api",
-                    "start":  "npm run start -w apps/api",
-                    "typecheck":  "npm run typecheck -w apps/api \u0026\u0026 npm run typecheck -w apps/web"
-                },
-    "devDependencies":  {
-                            "concurrently":  "^9.1.2",
-                            "cross-env":  "^7.0.3"
-                        },
-    "engines":  {
-                    "node":  "\u003e=20"
-                },
-    "pnpm":  {
-                 "onlyBuiltDependencies":  [
-                                               "esbuild"
-                                           ]
-             }
+  "name": "wxcc-wallboard",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Production-grade Webex Contact Center wallboard with real-time updates",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"pnpm --filter @wxcc-wallboard/api dev\" \"pnpm --filter @wxcc-wallboard/web dev\"",
+    "dev:mock": "cross-env MOCK_DATA=true pnpm dev",
+    "build": "pnpm --filter @wxcc-wallboard/web build && pnpm --filter @wxcc-wallboard/api build",
+    "start": "pnpm --filter @wxcc-wallboard/api start",
+    "typecheck": "pnpm --filter @wxcc-wallboard/api typecheck && pnpm --filter @wxcc-wallboard/web typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
 }
