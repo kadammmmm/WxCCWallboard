@@ -3,12 +3,12 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/api/package.json apps/api/
 COPY apps/web/package.json apps/web/
-RUN pnpm install --frozen-lockfile
+RUN corepack install && pnpm install --frozen-lockfile
 
 COPY apps/ apps/
 COPY .env.example .env.example
@@ -20,12 +20,12 @@ ENV NODE_ENV=production
 ENV PORT=3001
 ENV MOCK_DATA=false
 
-RUN apk add --no-cache dumb-init && corepack enable && corepack prepare pnpm@latest --activate
+RUN apk add --no-cache dumb-init && corepack enable
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/api/package.json apps/api/
 COPY apps/web/package.json apps/web/
-RUN pnpm install --frozen-lockfile --prod && pnpm store prune
+RUN corepack install && pnpm install --frozen-lockfile --prod && pnpm store prune
 
 COPY --from=build /app/apps/api/dist apps/api/dist
 COPY --from=build /app/apps/web/dist apps/web/dist
